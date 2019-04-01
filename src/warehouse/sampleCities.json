@@ -1,0 +1,184 @@
+[
+  {
+    "country": "NL",
+    "name": "Amsterdam",
+    "lat": "52.37403",
+    "lng": "4.88969",
+    "types": ["metropolis", "history"]
+  },
+  {
+    "country": "NZ",
+    "name": "Auckland",
+    "lat": "-36.84853",
+    "lng": "174.76349",
+    "types": ["metropolis", "sea"]
+  },
+  {
+    "country": "TH",
+    "name": "Bangkok",
+    "lat": "13.75398",
+    "lng": "100.50144",
+    "types": ["metropolis", "history"]
+  },
+  {
+    "country": "CN",
+    "name": "Beijing",
+    "lat": "39.9075",
+    "lng": "116.39723",
+    "types": ["metropolis", "history"]
+  },
+  {
+    "country": "TH",
+    "name": "Chiang Mai",
+    "lat": "18.79038",
+    "lng": "98.98468",
+    "types": ["history", "mountain"]
+  },
+  {
+    "country": "AE",
+    "name": "Dubai",
+    "lat": "25.0657",
+    "lng": "55.17128",
+    "types": ["metropolis", "sea"]
+  },
+  {
+    "country": "HK",
+    "name": "Hong Kong",
+    "lat": "22.27832",
+    "lng": "114.17469",
+    "types": ["metropolis"]
+  },
+  {
+    "country": "US",
+    "name": "Honolulu",
+    "lat": "21.30694",
+    "lng": "-157.85833",
+    "types": ["sea", "mountain"]
+  },
+  {
+    "country": "KR",
+    "name": "Jeju City",
+    "lat": "33.50972",
+    "lng": "126.52194",
+    "types": ["sea", "mountain"]
+  },
+  {
+    "country": "JP",
+    "name": "Kyoto",
+    "lat": "35.02107",
+    "lng": "135.75385",
+    "types": ["history"]
+  },
+  {
+    "country": "PK",
+    "name": "Lahore",
+    "lat": "31.558",
+    "lng": "74.35071",
+    "types": ["mountain", "history"]
+  },
+  {
+    "country": "GB",
+    "name": "London",
+    "lat": "51.50853",
+    "lng": "-0.12574",
+    "types": ["metropolis", "history"]
+  },
+  {
+    "country": "US",
+    "name": "New York City",
+    "lat": "40.71427",
+    "lng": "-74.00597",
+    "types": ["metropolis"]
+  },
+  {
+    "country": "CA",
+    "name": "Ottawa",
+    "lat": "45.41117",
+    "lng": "-75.69812",
+    "types": ["metropolis", "history"]
+  },
+  {
+    "country": "PF",
+    "name": "Papeete",
+    "lat": "-17.53733",
+    "lng": "-149.5665",
+    "types": ["sea"]
+  },
+  {
+    "country": "FR",
+    "name": "Paris",
+    "lat": "48.85341",
+    "lng": "2.3488",
+    "types": ["metropolis", "history"]
+  },
+  {
+    "country": "TH",
+    "name": "Phuket",
+    "lat": "7.89059",
+    "lng": "98.3981",
+    "types": ["sea"]
+  },
+  {
+    "country": "IT",
+    "name": "Rome",
+    "lat": "41.89193",
+    "lng": "12.51133",
+    "types": ["metropolis", "history"]
+  },
+  {
+    "country": "US",
+    "name": "San Francisco",
+    "lat": "37.77493",
+    "lng": "-122.41942",
+    "types": ["sea", "metropolis", "mountain"]
+  },
+  {
+    "country": "KR",
+    "name": "Seoul",
+    "lat": "37.566",
+    "lng": "126.9784",
+    "types": ["metropolis", "history", "mountain"]
+  },
+  {
+    "country": "CN",
+    "name": "Shanghai",
+    "lat": "31.22222",
+    "lng": "121.45806",
+    "types": ["metropolis"]
+  },
+  {
+    "country": "SG",
+    "name": "Singapore",
+    "lat": "1.28967",
+    "lng": "103.85007",
+    "types": ["metropolis", "sea"]
+  },
+  {
+    "country": "AU",
+    "name": "Sydney",
+    "lat": "-33.86785",
+    "lng": "151.20732",
+    "types": ["metropolis", "sea"]
+  },
+  {
+    "country": "JP",
+    "name": "Tokyo",
+    "lat": "35.6895",
+    "lng": "139.69171",
+    "types": ["metropolis", "history"]
+  },
+  {
+    "country": "CA",
+    "name": "Toronto",
+    "lat": "43.70011",
+    "lng": "-79.4163",
+    "types": ["metropolis"]
+  },
+  {
+    "country": "CA",
+    "name": "Vancouver",
+    "lat": "49.24966",
+    "lng": "-123.11934",
+    "types": ["metropolis", "mountain", "sea"]
+  }
+]
