@@ -1,6 +1,8 @@
 let mongoose = require('mongoose');
+
 const db = require('../dbConnectionString');
-mongoose.connect(db.db_Warehouse);
+
+mongoose.connect(db.db_Warehouse1);
 
 
 let cityWhSchema = new mongoose.Schema({

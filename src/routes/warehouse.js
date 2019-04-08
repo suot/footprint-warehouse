@@ -4,9 +4,9 @@ const mongoose = require('mongoose')
 
 const Fact = require('../models/warehouse/Fact.model');
 const City_wh = require('../models/warehouse/City_wh.model');
-// const Date_wh = require('../models/warehouse/Date_wh.model');
-// const Type_wh = require('../models/warehouse/Type_wh.model');
 
+const redis = require("redis");
+const client = redis.createClient();
 
 //synchronize data from source databases to warehouse
 router.post('/warehouse/add', async function(req, res) {
@@ -23,7 +23,6 @@ router.post('/warehouse/add', async function(req, res) {
         res.status(500).send("Failed to synchronize data to warehouse");
     }
 });
-
 
 addTravel = (res, travels, i) => {
     if(i < travels.length){
@@ -106,8 +105,7 @@ addTravel = (res, travels, i) => {
     //     }
     // })
     //
-}
-
+};
 
 insertIntoFact =  (res, travels, i, cityId) => {
     let factModel = new Fact({
@@ -124,8 +122,7 @@ insertIntoFact =  (res, travels, i, cityId) => {
     factModel.save().then(()=>{}).catch( err => res.status(500));
 
     addTravel(res, travels, ++i);
-}
-
+};
 
 
 // Delete sample data from warehouse
@@ -142,56 +139,65 @@ router.delete('/warehouse/delete', (req, res) => {
         }
 
     }).catch( err => res.status(500))
-})
+});
 
 
+//query the top 10 metropolises in 2018 rankin by their average rating.
+//query goes to the redis database if the key(query string) is fetched in redis, otherwise to the warehouse.
 router.post('/warehouse/cityList', (req, res) => {
-
     if(!req.body){
         return res.status(400).send('Request body is missing')
     }
 
     const query = req.body;
-    let type = query.type.toString();
-    let number = Number.parseInt(query.number);
+    const redisKey = query.number.toString() + "_" + query.type.toString();
 
-    // let type = "metropolis";
-    // let number = 10;
+    client.get(redisKey, function(err, reply) {
+        if(reply){
+            console.log("returned from redis with the key of ", redisKey);
+            res.status(200).send(JSON.parse(reply));
+        }else{
+            let type = query.type.toString();
+            let number = Number.parseInt(query.number);
+            // let type = "metropolis";
+            // let number = 10;
+            //console.log("type", type, "number", number);
 
-    console.log("type", type, "number", number)
+            let groupBy = [
+                { "$match": {$and:[{type: type}]}},
+                { $lookup: {from: 'cities_wh', localField: 'city', foreignField: '_id', as: 'city1'} },
+                {
+                    $group: {
+                        _id: "$city1",
+                        avgRating: {$avg: "$rating"},
+                    }
+                },
+                { "$sort": {avgRating: -1} }
+            ];
 
-    let groupBy = [
-        { "$match": {$and:[{type: type}]}},
-        { $lookup: {from: 'cities_wh', localField: 'city', foreignField: '_id', as: 'city1'} },
-        {
-            $group: {
-                _id: "$city1",
-                avgRating: {$avg: "$rating"},
-            }
-        },
-        { "$sort": {avgRating: -1} },
-    ]
+            // Fact.find({type: type}, {start:regex}).populate('city_wh').aggregate(groupBy).sort({avgRatings: -1}).limit(3).then( cityList => {
+            Fact.aggregate(groupBy).limit(number).then( result => {
+                let cityList=[];
+                result && result.map(row=>{
+                    let record = (row._id)[0];
+                    let city = {
+                        name: record.name,
+                        country: record.country,
+                        latlng: record.latlng,
+                        avgRating: row.avgRating,
+                        _id: record._id
+                    };
+                    cityList.push(city);
+                });
 
-    // Fact.find({type: type}, {start:regex}).populate('city_wh').aggregate(groupBy).sort({avgRatings: -1}).limit(3).then( cityList => {
-    Fact.aggregate(groupBy).limit(number).then( result => {
+                console.log("returned from warehouse");
+                client.set(redisKey, JSON.stringify(cityList));
+                res.status(200).send(cityList);
+            }).catch( () => res.status(500))
+        }
+    });
 
-        let cityList=[];
-        result && result.map(row=>{
-            let record = (row._id)[0];
-            let city = {
-                name: record.name,
-                country: record.country,
-                latlng: record.latlng,
-                avgRating: row.avgRating,
-                _id: record._id
-            }
-            cityList.push(city);
-        })
-
-        console.log(cityList);
-        res.status(200).send(cityList);
-    }).catch( err => res.status(500))
-})
+});
 
 
 
